@@ -23,3 +23,11 @@ Ordem
 No Último Quadro da Programação Testa se ACabou a programação
 E procura outra se tiver acabado.Senaõ continua na mesma.
 
+/*** ATUALIZAR MAQUINA LOCAL COM O GITHUB ***/
+
+git init
+git remote add upstream https://github.com/oliveiraaerton/gmi.git
+git checkout master
+git fetch upstream
+git rebase upstream/master
+git push origin master
