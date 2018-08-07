@@ -1,0 +1,87 @@
+@{
+    Layout = "~/Layout/Layout.cshtml";
+  	Empresa e = Aplicativo.ListaEmpresa();
+    string chave = (string) Session["user"];
+}
+
+@if(!String.IsNullOrEmpty(chave))
+{
+<h1> CADASTRO DE EMPRESA </h1>
+<!-- Extended material form grid -->
+<form method="post" 
+@if(Aplicativo.existeEmpresa(e.Cnpj)){
+    <text> 
+        action="@Href("~/Views/Acts/AtualizarEmpresa.cshtml")" 
+    </text>
+    } else {
+    <text> 
+        action="@Href("~/Views/Acts/SalvarEmpresa.cshtml")" 
+    </text>        
+    }     
+>
+    <!-- Grid row -->
+    <div class="form-row">
+        <!-- Grid column -->
+        <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+                <input type="text" class="form-control" name="inputNome" id="inputNome" placeholder="Nome" value="@e.Nome">
+                <label for="inputNome">Nome</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+                <input type="text" class="form-control" id="inputCnpj" name="inputCnpj" placeholder="CNPJ" value="@e.Cnpj"
+                @if(Aplicativo.existeEmpresa(e.Cnpj)){<text> disabled </text>} >
+                <input type="text" class="form-control" id="Cnpj" name="Cnpj" value="@e.Cnpj" hidden />
+                <label for="inputCnpj">Cnpj</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+
+    <!-- Grid row -->
+    <div class="row">
+        <!-- Grid column -->
+        <div class="col-md-12">
+            <!-- Material input -->
+            <div class="md-form form-group">
+                <input type="text" class="form-control" id="inputEndereco" name="inputEndereco" placeholder="R. dos Anzois Pereira" value="@e.Endereco">
+                <label for="inputEndereco">Endereço</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+
+    <!-- Grid row -->
+    <div class="form-row">
+        <!-- Grid column -->
+        <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+                <input type="text" class="form-control" id="inputFone" name="inputFone" placeholder="(85)9 9999.9999" value="@e.Fone">
+                <label for="inputFone">Fone</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+                <input type="text" class="form-control" id="inputResponsavel" name="inputResponsavel" placeholder="Fulano de Tal" value="@e.Responsavel">
+                <label for="inputResponsavel">Responsável</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+  </div>
+  <!-- Grid row -->
+    <button type="submit" class="btn btn-primary btn-md">Salvar</button>
+</form>
+<!-- Extended material form grid -->
+}

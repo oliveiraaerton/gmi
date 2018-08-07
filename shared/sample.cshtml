@@ -1,0 +1,17 @@
+<style>
+	body {
+		background-color: #001a33;
+	}
+</style>
+
+<span class="container-fluid" style="position: fixed; z-index: -100; text-align: center;">
+<img src="@Href("~/App_Content/aguavitoria.jpg")" alt="logo" width="1600px" HEIGHT=750px" rel="prefetch" />
+</span>
+
+
+
+<script>
+	setTimeout( function() {
+	  window.location="@Href("~/App_View/Horti.cshtml")"; 
+	}, @Dao.temporizador  );
+</script>

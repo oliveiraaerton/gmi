@@ -1,0 +1,58 @@
+@{
+	Layout = "~/Layout/Layout.cshtml";
+	int conta = 1;
+}
+
+<span class="container-fluid" style="position: fixed; z-index: -100;">
+<img src="@Href("~/App_Content/Bebidas.JPG")" alt="logo" width="@Dao.largura" HEIGHT="@Dao.altura" rel="prefetch" class="imagemD"/>
+</span>
+
+<div id="imagem">
+<table class="table-mit">
+	<tr>
+		<th class="titulo inverte">
+			DESCRIÇÃO
+		</th>	
+		<th class="titulo inverte" colspan="2">
+			VALOR
+		</th>	
+	</tr>
+
+	@foreach(Referencia r in frios)
+	{
+		<tr style=" @if(conta%2==0) { <text> background-color:#F5DEB3; </text> } else { <text> background-color:White; </text> } ">
+			<td class="descricao">
+				@Dao.Truncate(r.Descricao,28)
+			</td>
+			@if(r.PrecoOferta>0){
+				<td class="descricao">R$</td>
+				<td class="preco corOferta">
+					@r.PrecoOferta.ToString("n2")
+				</td>				
+			}
+			else if(r.PrecoNormal>0)
+			{
+				<td class="descricao">R$</td>
+				<td class="preco corNormal">
+					@r.PrecoNormal.ToString("n2")
+				</td>							
+			}
+		</tr>
+		conta+=1;
+	}
+</table>
+</div>
+
+<script>
+    document.getElementById("imagem").style.display = "none";
+	setTimeout( function() {
+	  document.getElementById("imagem").style.display = "inline";
+	}, 500 );
+
+	setTimeout( function() {
+	  window.location="@Href("~/App_View/AguaKeroMais.cshtml")"; 
+	}, @Dao.temporizador  );
+</script>
+
+
+

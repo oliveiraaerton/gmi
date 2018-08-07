@@ -1,0 +1,162 @@
+///// CRUD ITENSTABELAS
+
+	protected  static List<ItensTabelas> listItensTabelas()
+	{
+		inicializa();
+		List<ItensTabelas> es = new List<ItensTabelas>();
+		try
+		{
+			var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+			db.Close();
+			var query = db.Query("SELECT ItensTabela.* FROM ItensTabela ORDER BY ItensTabela.ID");
+			foreach(var sql in query)
+			{
+				ItensTabelas e = new ItensTabelas();
+				e.ID = sql.ID>0?sql.ID:0;
+				e.TabelaID = sql.TABELA_ID>0?sql.TABELA_ID:0;
+				e.Produto = String.IsNullOrEmpty(sql.PRODUTO)?"":sql.PRODUTO.ToString();
+				e.FonteProduto = String.IsNullOrEmpty(sql.FONTE_PRODUTO)?"":sql.FONTE_PRODUTO.ToString();
+				e.TamanhoProduto = sql.TAMANHO_PRODUTO>0?sql.TAMANHO_PRODUTO:20;
+				e.Valor = String.IsNullOrEmpty(sql.VALOR)?"":sql.VALOR.ToString();
+				e.FonteValor = String.IsNullOrEmpty(sql.FONTE_VALOR)?"":sql.FONTE_VALOR.ToString();
+				e.TamanhoValor = sql.TAMANHO_VALOR>0?sql.TAMANHO_VALOR:20;
+				es.Add(e);
+			}
+			if(es.Count>0)
+			{
+				mensagemSucesso.mensagem = "Total de Itens de Tabela: " + es.Count;
+				mensagemSucesso.cor = "Green";				
+			}
+			else
+			{
+				mensagemErro.mensagem = "Nenhum Item de Tabela a ser listado";
+				mensagemErro.cor = "Red";								
+			}
+
+		} catch (Exception ex) {
+			mensagemErro.mensagem = ex.Message;
+			mensagemErro.cor = "Red";
+		}
+		return es;
+	}
+
+	protected  static ItensTabelas getItensTabelas(int ID)
+	{
+		inicializa();
+		ItensTabelas e = new ItensTabelas();
+		try
+		{
+			var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+			db.Close();
+			var sql = db.QuerySingle("SELECT ItensTabela.* FROM ItensTabela WHERE ID = @0", ID);
+			if(sql!=null)
+			{
+				e.ID = sql.ID>0?sql.ID:0;
+				e.TabelaID = sql.TABELA_ID>0?sql.TABELA_ID:0;
+				e.Produto = String.IsNullOrEmpty(sql.PRODUTO)?"":sql.PRODUTO.ToString();
+				e.FonteProduto = String.IsNullOrEmpty(sql.FONTE_PRODUTO)?"":sql.FONTE_PRODUTO.ToString();
+				e.TamanhoProduto = sql.TAMANHO_PRODUTO>0?sql.TAMANHO_PRODUTO:20;
+				e.Valor = String.IsNullOrEmpty(sql.VALOR)?"":sql.VALOR.ToString();
+				e.FonteValor = String.IsNullOrEmpty(sql.FONTE_VALOR)?"":sql.FONTE_VALOR.ToString();
+				e.TamanhoValor = sql.TAMANHO_VALOR>0?sql.TAMANHO_VALOR:20;
+				mensagemSucesso.mensagem = "Tabela: " + e.Cabecalho;
+				mensagemSucesso.cor = "Green";			
+			}
+			else
+			{
+				mensagemErro.mensagem = "Itens Não Localizados!";
+				mensagemErro.cor = "Red";	
+			}
+
+		} catch (Exception ex) {
+			mensagemErro.mensagem = ex.Message;
+			mensagemErro.cor = "Red";
+		}
+		return e;
+	}
+
+	protected  static void setItensTabelas(ItensTabelas e)
+	{
+		inicializa();
+		validaValor("TABELA_ID", e.TabelaID);
+		if(String.IsNullOrEmpty(getItensTabelas(e.ID).Produto))
+		{
+			if(validacao)
+			{
+				try
+				{
+					var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+					db.Execute("INSERT INTO ItensTabela (TABELA_ID, PRODUTO, FONTE_PRODUTO, TAMANHO_PRODUTO, VALOR, FONTE_VALOR, TAMANHO_VALOR) VALUES (@0, @1, @2, @3, @4, @5, @6)", e.TabelaID, e.Produto, e.FonteProduto, e.TamanhoProduto, e.Valor, e.FonteValor, e.TamanhoValor);
+					db.Close();
+					mensagemSucesso.mensagem = "Item de Tabela Salvo Com Sucesso!";
+					mensagemSucesso.cor = "Green";
+				} catch (Exception ex) {
+					mensagemErro.mensagem = ex.Message;
+					mensagemErro.cor = "Red";
+				}			
+			} else {
+				mensagemErro.mensagem = "Item de Tabela Não Foi Salvo!";
+				mensagemErro.cor = "Red";
+			}
+		}
+		else 
+		{
+			mensagemErro.mensagem = "Item de Tabela Já Foi Salvo!";
+			mensagemErro.cor = "Red";
+		}
+	}
+
+	protected  static void updateItensTabelas(ItensTabelas e)
+	{
+		inicializa();
+		validaValor("TABELA_ID", e.TabelaID);
+		if(!String.IsNullOrEmpty(getItensTabelas(e.ID).Produto))
+		{
+			if(validacao)
+			{
+				try
+				{
+					var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+					db.Execute("UPDATE ItensTabela SET PRODUTO=@0, FONTE_PRODUTO=@1, TAMANHO_PRODUTO=@2, VALOR=@3, FONTE_VALOR=@4, TAMANHO_VALOR=@5 WHERE ID=@6", e.Produto, e.FonteProduto, e.TamanhoProduto, e.Valor, e.FonteValor, e.TamanhoValor, e.ID);
+					db.Close();
+					mensagemSucesso.mensagem = "Item de Tabela Alterado Com Sucesso!";
+					mensagemSucesso.cor = "Green";
+				} catch (Exception ex) {
+					mensagemErro.mensagem = ex.Message;
+					mensagemErro.cor = "Red";
+				}			
+			} else {
+				mensagemErro.mensagem = "Item de Tabela Não Foi Alterado!";
+				mensagemErro.cor = "Red";
+			}
+		}
+		else 
+		{
+			mensagemErro.mensagem = "Item de Tabela Não Existe!";
+			mensagemErro.cor = "Red";
+		}
+	}
+
+	protected  static void deleteItensTabelas(ItensTabelas e)
+	{
+		inicializa();
+		if(getItensTabelas(e.ID).ID>0)
+		{
+				try
+				{				
+					var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+					db.Execute("DELETE ItensTabelas WHERE ID=@0", e.ID);				
+					db.Close();
+					mensagemSucesso.mensagem = "Item de Tabela Excluído Com Sucesso!";
+					mensagemSucesso.cor = "Green";
+				} catch (Exception ex) {
+					mensagemErro.mensagem = ex.Message;
+					mensagemErro.cor = "Red";
+				}
+		}
+		else 
+		{
+			mensagemErro.mensagem = "Item de Tabela Não Existe!";
+			mensagemErro.cor = "Red";
+		}
+	}

@@ -1,0 +1,25 @@
+Midias
+Selecionar Tipo de Midia:
+Cartaz
+Feed
+Imagem
+Tabelas
+
+AbreTela de Inclusão da Mídia Selecionada
+
+TelaInclusaoCartaz
+TelaInclusaoFeed
+TelaInclusaoImagem
+TelaInclusaoTabelas
+
+Programação
+Gravar Programação Periodo de Quando a Quando
+
+Inclusão de Itens
+Puxando as Midias Gravadas
+Tempo de Exibição
+Ordem
+
+No Último Quadro da Programação Testa se ACabou a programação
+E procura outra se tiver acabado.Senaõ continua na mesma.
+

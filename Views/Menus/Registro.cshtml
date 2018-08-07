@@ -1,0 +1,50 @@
+@{
+    Layout = "~/Layout/Layout.cshtml";
+  	Registro e = Aplicativo.ListaRegistro(Aplicativo.ListaEmpresa().Cnpj);
+    string chave = (string) Session["user"];
+}
+
+@if(!String.IsNullOrEmpty(chave))
+{
+<h1> REGISTRO DA LICENÇA </h1>
+<!-- Extended material form grid -->
+<form method="post" 
+@if(Aplicativo.existeRegistro(e.Cnpj)){
+    <text> 
+        action="@Href("~/Views/Acts/AtualizarRegistro.cshtml")" 
+    </text>
+    } else {
+    <text> 
+        action="@Href("~/Views/Acts/SalvarRegistro.cshtml")" 
+    </text>        
+    }     
+>
+    <!-- Grid row -->
+    <div class="form-row">
+        <!-- Grid column -->
+        <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+                <input type="text" class="form-control" id="inputCnpj" name="inputCnpj" placeholder="CNPJ" value="@e.Cnpj"
+                @if(Aplicativo.existeRegistro(e.Cnpj)){<text> disabled </text>} >
+                <input type="text" class="form-control" id="Cnpj" name="Cnpj" value="@e.Cnpj" hidden />
+                <label for="inputCnpj">Cnpj</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+                <input type="text" class="form-control" name="inputLicenca" id="inputLicenca" placeholder="Licença" value="@e.LicencaAtiva">
+                <label for="inputLicenca">Licença</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+
+    <button type="submit" class="btn btn-primary btn-md">Salvar</button>
+</form>
+<!-- Extended material form grid -->
+}

@@ -1,0 +1,59 @@
+@{
+	Layout="~/Layout/LayoutTeste.cshtml";
+	TestAssert.Asserts();	
+	TestAssert.StringAsserts();	
+}
+
+<div class="panel panel-default col-md-4">
+  <div class="panel-heading btn-danger text-center"> Teste Asserts </div>
+	@foreach(String s in Assert.Erro)
+	{
+	  <div class="panel-body">
+	  		@if(s.Contains("Success"))
+	  		{
+	  			<div class="alert-success">	
+					@s <br/>
+				</div>
+	  		}
+	  		else if(s.Contains("Failed")) 
+	  		{
+	  			<div class="alert-danger">		
+					@s <br/>
+				</div>
+			}
+			else
+			{
+	  			<div class="alert-primary">		
+					@s <br/>
+				</div>				
+			}
+			
+	  </div>
+	}
+  <div class="panel-heading btn-danger text-center"> Teste StringAsserts </div>
+	@foreach(String s in StringAssert.Erro)
+	{
+	  <div class="panel-body">
+	  		@if(s.Contains("Success"))
+	  		{
+	  			<div class="alert-success">	
+					@s <br/>
+				</div>
+	  		}
+	  		else if(s.Contains("Failed")) 
+	  		{
+	  			<div class="alert-danger">		
+					@s <br/>
+				</div>
+			}
+			else
+			{
+	  			<div class="alert-primary">		
+					@s <br/>
+				</div>				
+			}
+			
+	  </div>
+	}
+</div>
+

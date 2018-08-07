@@ -1,0 +1,103 @@
+@{
+  string chave = (string) Session["user"];
+
+}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-16">
+	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="@Href("~/Contents/css/bootstrap.min.css")" >
+
+    <link href="@Href("~/Contents/css/pricing.css")" rel="stylesheet">
+
+    <title>Gerenciador de Mídia Indoor </title>
+  </head>
+
+@if(Aplicativo.ValidaLicenca())
+{
+  <body>
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal"> <a class="p-2 text-dark" href="~/Views/Menus/Admin.cshtml"> GMI </a> </h5>
+      <nav class="my-2 my-md-0 mr-md-3 dropdown">
+      @if(String.IsNullOrEmpty(chave)){
+          <a class="p-2 text-dark" href="#">Registro </a>
+          <a class="p-2 text-dark" href="#">Empresa </a>
+          <a class="p-2 text-dark" href="#">Mídias </a>
+          <a class="p-2 text-dark" href="#">Programação </a>
+        } 
+        else
+        {
+          <a class="p-2 text-dark" href="~/Views/Menus/Registro.cshtml">Registro </a>
+          <a class="p-2 text-dark" href="~/Views/Menus/Empresa.cshtml">Empresa </a>
+          <a class="dropdown-toggle p-2 text-dark" data-toggle="dropdown"  href="#">Mídias </a>          
+          <ul class="dropdown-menu">
+            <li><a class="p-2 text-dark" href="~/Views/Menus/Cartaz.cshtml">Cartaz </a></li>
+            <li><a class="p-2 text-dark" href="~/Views/Menus/Feed.cshtml">Feed </a></li>
+            <li><a class="p-2 text-dark" href="~/Views/Menus/Imagem.cshtml">Imagem </a></li>
+            <li><a class="p-2 text-dark" href="~/Views/Menus/Tabelas.cshtml">Tabela </a></li>
+         </ul>
+          <a class="p-2 text-dark" href="#">Programação </a>
+        }
+      </nav>
+      @if(String.IsNullOrEmpty(chave)){
+          <form id="signin" class="navbar-form navbar-right" role="form" method="post" action="~/Views/Acts/ValidaUsuario.cshtml">
+              <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input id="email" type="email" class="form-control small" name="email" value="" placeholder="Email Address">                                        
+              </div>
+
+              <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="password" type="password" class="form-control small" name="password" value="" placeholder="Password">                                        
+              </div>
+
+              <button type="submit" class="btn btn-primary">Login </button>
+          </form>
+      }
+      else
+      {
+        <a class="btn btn-outline-primary" href="~/Views/Acts/Logout.cshtml">Log Out </a>   
+      }
+      
+</div>
+<div class="container">
+  	@RenderBody()
+</div>
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <small class="d-block mb-3 text-muted">&copy;GMi-2018</small>
+            @if(!String.IsNullOrEmpty(Dao.mensagemErro.mensagem)){
+                <div class="alert-danger">@Dao.mensagemErro.mensagem </div>
+            }
+          </div>
+        </div>
+      </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  </body>
+
+}
+else
+{
+<body class="nada">
+<div class="container">
+    @RenderBody()
+    <div class="alert-danger">
+      SUA LICENÇA EXPIROU ENTRE EM CONTATO COM O SUPORTE!!!!
+    </div>
+</div>
+</body>
+}
+
+</html>

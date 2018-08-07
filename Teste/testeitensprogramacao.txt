@@ -1,0 +1,105 @@
+    Teste.PesquisaItensProgramacaoComIDErrado();
+    <p>Teste.PesquisaItensProgramacaoComIDErrado()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.PesquisaItensProgramacaoComIDCerto();
+    <p>Teste.PesquisaItensProgramacaoComIDCerto()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.PesquisaListaItensProgramacao();
+    <p>Teste.PesquisaListaItensProgramacao()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.PesquisaListaNenhumItensProgramacao();
+    <p>Teste.PesquisaListaNenhumItensProgramacao()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.SetaItensProgramacaoInvalido();
+    <p>Teste.SetaItensProgramacaoInvalido()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.SetaItensProgramacaoValido();
+    <p>Teste.SetaItensProgramacaoValido()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.SetaItensProgramacaoJaSalvo();
+    <p>Teste.SetaItensProgramacaoJaSalvo()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.AtualizaItensProgramacaoInvalido();
+    <p>Teste.AtualizaItensProgramacaoInvalido()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.AtualizaItensProgramacaoValido();
+    <p>Teste.AtualizaItensProgramacaoValido()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.AtualizaItensProgramacaoInexistente();
+    <p>Teste.AtualizaItensProgramacaoInexistente()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.ApagaItensProgramacaoInexistente();
+    <p>Teste.ApagaItensProgramacaoInexistente()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.ApagaItensProgramacaoExistente();
+    <p>Teste.ApagaItensProgramacaoExistente()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.ListaItensPorProgramacaoProgramacaoInvalida();
+    <p>Teste.ListaItensPorProgramacaoProgramacaoInvalida()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.ListaItensPorTabelaTabelaSemItens();
+    <p>Teste.ListaItensPorTabelaTabelaSemItens()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+<hr>
+    Teste.ListaItensPorProgramacaoProgramacaoComItens();
+    <p>Teste.ListaItensPorProgramacaoProgramacaoComItens()</p>
+    <p>Acerto: @Teste.NumeroAcertos</p>
+    <p>Erros: @Teste.NumeroErros</p>
+    <p>Teste: @Teste.TesteOk</p>    
+    <p style="color: Red">@Teste.debug</p>
+
