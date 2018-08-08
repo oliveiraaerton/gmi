@@ -7,33 +7,71 @@
   <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="@Href("~/App_Content/css/bootstrap.min.css")" >
-
-    <link href="@Href("~/App_Content/css/pricing.css")" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <title>Gerenciado de Mídia Indoor</title>
     <style>
       .nada{
         display:none;
       }
-      marquee {
+      marquee 
+      {
         font-size: 24px;
         position: absolute;
         bottom: 10px;
       }
-      iframe{
-        width:100%;
-        height: 520px;
-        text-align: center;
+      .imagem
+      {
+        width: 1024px;
+        height: 1000px;
+         background-size: cover;
       }
+      body
+      {
+       -webkit-print-color-adjust: exact;
+      }
+
+      td{
+      padding: 0px 10px 0px 10px; font-height: bolder;
+      }
+
+    .center{
+      text-align: center;
+    }
+    .descricao{
+      font-size: 30pt; width: 90%;
+    }
+    .titulo{
+      font-size: 24pt;
+    }
+    .preco { 
+      font-size: 36pt; 
+    } 
+    .inverte {
+      color: White; background-color: Black;
+    }
+    .imagemD {
+      margin-left: 10px;
+    }
+    .table-mit {
+       margin-left: 500px; margin-top: 1px; width: 1060px;
+    }
+    .corOferta{
+      color: #990000; text-align: right;
+    }
+    .corNormal{
+      color: #003300; text-align: right;
+    }      
     </style>
   </head>
 
-@if(Aplicativo.ValidaLicenca()){
+@if(true){
 <body>
-<div class="container">
+
   	@RenderBody()
-</div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

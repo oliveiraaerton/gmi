@@ -1,5 +1,6 @@
 @{
-	Layout = "~/Layout/Layout.cshtml";
+	Layout="~/Layout/LayoutMidia.cshtml";
+
 	int conta = 1;
 	List<Referencia> frios = new List<Referencia>();
 	Referencia r = new Referencia();
@@ -27,10 +28,10 @@
 }
 
 <span class="container-fluid" style="position: fixed; z-index: -100;">
-<img src="@Href("~/Content/imagens/Bebidas.JPG")" alt="logo" width="@Dao.largura" HEIGHT="@Dao.altura" rel="prefetch" class="imagemD"/>
+<img src="@Href("~/Contents/imagens/Bebidas.JPG")" alt="logo" width="@Dao.largura" HEIGHT="@Dao.altura" rel="prefetch" class="imagemD"/>
 </span>
 
-<div id="imagem">
+<div>
 <table class="table-mit">
 	<tr>
 		<th class="titulo inverte">
@@ -41,23 +42,23 @@
 		</th>	
 	</tr>
 
-	@foreach(Referencia r in frios)
+	@foreach(Referencia refe in frios)
 	{
 		<tr style=" @if(conta%2==0) { <text> background-color:#F5DEB3; </text> } else { <text> background-color:White; </text> } ">
 			<td class="descricao">
-				@Dao.Truncate(r.Descricao,28)
+				@Dao.Truncate(refe.Descricao,28)
 			</td>
-			@if(r.PrecoOferta>0){
+			@if(refe.PrecoOferta>0){
 				<td class="descricao">R$</td>
 				<td class="preco corOferta">
-					@r.PrecoOferta.ToString("n2")
+					@refe.PrecoOferta.ToString("n2")
 				</td>				
 			}
-			else if(r.PrecoNormal>0)
+			else if(refe.PrecoNormal>0)
 			{
 				<td class="descricao">R$</td>
 				<td class="preco corNormal">
-					@r.PrecoNormal.ToString("n2")
+					@refe.PrecoNormal.ToString("n2")
 				</td>							
 			}
 		</tr>

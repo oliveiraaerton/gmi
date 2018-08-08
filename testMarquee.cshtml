@@ -3,11 +3,11 @@
 
 	List<String> imagens = new List<String>();
 
-	imagens.Add("/GMI/Contents/imagens/aguavitoria.jpg");
-	imagens.Add("/GMI/Contents/imagens/bebidas.jpg");
-	imagens.Add("/GMI/Contents/imagens/frigorifico.jpg");
-	imagens.Add("/GMI/Contents/imagens/frios.jpg");
-	imagens.Add("/GMI/Contents/imagens/hortifruti.jpg");
+	imagens.Add("/GMI/Contents/imagens/slide1.jpg");
+	imagens.Add("/GMI/Contents/imagens/slide2.jpg");
+	imagens.Add("/GMI/Contents/imagens/slide3.jpg");
+	imagens.Add("/GMI/Contents/imagens/slide4.jpg");
+	imagens.Add("/GMI/Contents/imagens/slide5.jpg");
 
 	List<Feed> feeds = new List<Feed>();
 
@@ -20,20 +20,36 @@
 	f.Titulo = "Seção 1.1.32 de 'de Finibus Bonorum et Malorum', escrita por Cícero em 45 AC.";
 	f.Noticia = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?";
 	feeds.Add(f);
+
+	int car = 0;
 }
-	<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-	  <div class="carousel-inner">
-	    <div class="carousel-item active">
-	      <img class="d-block w-100" src="..." alt="First slide">
+<div id="myCarousel" class="carousel slide" data-ride="carousel"  data-interval="5000" style="background-size: cover;">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+  	@foreach(string i in imagens)
+  	{ 		
+  		<li data-target="#myCarousel" data-slide-to="@car.ToString()"  @if(car==0){<text> class="active" </text>}></li>	
+  		car+=1;
+  	}
+  </ol>
+@{car=0;}
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+     	<iframe src="@Href("~/sample2.cshtml")" scrolling="no" width="100%" height="800"></iframe>
+    </div>
+  	@foreach(string i in imagens)
+  	{
+	    <div class="item">
+	      <img src="@i" alt="Imagen_@car" class="imagem"/>
 	    </div>
-	    <div class="carousel-item">
-	      <img class="d-block w-100" src="..." alt="Second slide">
-	    </div>
-	    <div class="carousel-item">
-	      <img class="d-block w-100" src="..." alt="Third slide">
-	    </div>
-	  </div>
-	</div>
+	    car+=1;
+	}
+  </div>
+
+
+</div>
+
 <div class="footer">
 <marquee scrollamount="3">
 	@foreach(Feed fe in feeds)

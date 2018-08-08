@@ -26,6 +26,9 @@ public class Dao
 	public static Mensagem mensagemValidacao = new Mensagem();
 	public static Mensagem mensagemSucesso = new Mensagem();
 	//public static bool validacao = true;
+	public static int temporizador = 30000;
+	public static int largura = 400;
+	public static int altura = 730;
 
 	public static string Truncate(string value, int maxLength)
 	{
