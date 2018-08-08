@@ -1,5 +1,28 @@
 @{
 	Layout = "~/Layout/Layout.cshtml";
-}
+	/**
+		listar dez cartazes
+		permitir pesquisar pelo cabecalho
+		botao novo para incluir
+		na lista tem botao editar e excluir
+	**/
+    string chave = (string) Session["user"];
+	List<Feed> feeds = Aplicativo.listaFeed(1);
 
-<h1> FEED </h1>
+	if(!String.IsNullOrEmpty(chave))
+	{
+		<h1> FEED </h1>
+	    <a href="@Href("~/Views/Forms/NovoFeed.cshtml")" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Novo </a>
+		<ul>
+		@foreach(Feed c in feeds)
+		{
+			<li>
+				<ul>
+					<li>@c.Ordem </li>
+					<li>@c.Noticia.Substring(0,20)</li>
+				</ul>
+			</li>
+		}
+		</ul>
+	}
+}

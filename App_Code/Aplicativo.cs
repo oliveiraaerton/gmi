@@ -130,10 +130,31 @@ public class Aplicativo:Dao
 		response.Redirect("~/Views/Menus/Admin.cshtml");
 	}
 
+	public static void SalvarFeed(HttpResponseBase response, HttpRequestBase request)
+	{
+		Dao.inicializa();
+		Feed e = new Feed();
+		e.Ordem = int.Parse(request["inputOrdem"].ToString());
+		e.Noticia = request["inputNoticia"];
+		e.Titulo =  request["inputTitulo"];
+		Dao.setFeed(e);	
+
+		response.Redirect("~/Views/Menus/Admin.cshtml");
+	}
+
 	public static bool ValidaLicenca()
 	{
 		bool resultado = Dao.validaLicenca(ListaRegistro(ListaEmpresa().Cnpj).LicencaAtiva, DateTime.Now);
 		return resultado;
 	}
 
+	public static List<Cartaz> listaCartaz()
+	{
+		return Dao.listCartazes();
+	}
+
+	public static List<Feed> listaFeed(int ativo)
+	{
+		return Dao.listFeeds(ativo);
+	}
 }

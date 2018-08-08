@@ -1794,8 +1794,49 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 			{
 				Feed e = new Feed();
 				e.ID = sql.ID>0?sql.ID:0;
+				e.Titulo = String.IsNullOrEmpty(sql.TITULO)?"":sql.TITULO.ToString();
 				e.Noticia = String.IsNullOrEmpty(sql.NOTICIA)?"":sql.NOTICIA.ToString();
 				e.Ordem = sql.ORDEM>0?sql.ORDEM:20;
+				e.Ativo = sql.ORDEM>0?sql.ATIVO:1;
+				e.Velocidade = sql.ORDEM>0?sql.VELOCIDADE:2;
+				es.Add(e);
+			}
+			if(es.Count>0)
+			{
+				mensagemSucesso.mensagem = "Total de Feeds: " + es.Count;
+								
+			}
+			else
+			{
+				mensagemValidacao.mensagem += "Nenhum Feed a ser listado";
+												
+			}
+
+		} catch (Exception ex) {
+			mensagemErro.mensagem = ex.Message;
+			
+		}
+		return es;
+	}
+
+	protected  static List<Feed> listFeeds(int ativo)
+	{
+		inicializa();
+		List<Feed> es = new List<Feed>();
+		try
+		{
+			var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+			var query = db.Query("SELECT Feed.* FROM Feed WHERE ativo=@0 ORDER BY ORDEM", ativo);
+			db.Close();
+			foreach(var sql in query)
+			{
+				Feed e = new Feed();
+				e.ID = sql.ID>0?sql.ID:0;
+				e.Titulo = String.IsNullOrEmpty(sql.TITULO)?"":sql.TITULO.ToString();
+				e.Noticia = String.IsNullOrEmpty(sql.NOTICIA)?"":sql.NOTICIA.ToString();
+				e.Ordem = sql.ORDEM>0?sql.ORDEM:20;
+				e.Ativo = sql.ORDEM>0?sql.ATIVO:1;
+				e.Velocidade = sql.ORDEM>0?sql.VELOCIDADE:2;
 				es.Add(e);
 			}
 			if(es.Count>0)
@@ -1828,8 +1869,11 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 			if(sql!=null)
 			{
 				e.ID = sql.ID>0?sql.ID:0;
+				e.Titulo = String.IsNullOrEmpty(sql.TITULO)?"":sql.TITULO.ToString();
 				e.Noticia = String.IsNullOrEmpty(sql.NOTICIA)?"":sql.NOTICIA.ToString();
 				e.Ordem = sql.ORDEM>0?sql.ORDEM:20;
+				e.Ativo = sql.ORDEM>0?sql.ATIVO:1;
+				e.Velocidade = sql.ORDEM>0?sql.VELOCIDADE:2;
 				mensagemSucesso.mensagem = "Feed: " + e.Noticia;
 							
 			}
@@ -1849,7 +1893,7 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 	protected  static void setFeed(Feed e)
 	{
 		inicializa();
-		bool validacao = validaPresence("NOTICIA", e.Noticia) &&		validaValor("ORDEM", e.Ordem) ;
+		bool validacao = validaPresence("NOTICIA", e.Noticia) && validaValor("ORDEM", e.Ordem) && validaPresence("TITULO", e.Titulo);
 		if(String.IsNullOrEmpty(getFeed(e.ID).Noticia))
 		{
 			if(validacao)
@@ -1857,7 +1901,7 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 				try
 				{
 					var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
-					db.Execute("INSERT INTO Feed (NOTICIA, ORDEM) VALUES (@0, @1)", e.Noticia, e.Ordem);
+					db.Execute("INSERT INTO Feed (ORDEM, TITULO, NOTICIA, ATIVO, VELOCIDADE) VALUES (@0, @1, @2, @3, @4)", e.Ordem, e.Titulo, e.Noticia, 1, 2);
 					db.Close();
 					mensagemSucesso.mensagem = "Feed Salva Com Sucesso!";
 					
@@ -1880,7 +1924,7 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 	protected  static void updateFeed(Feed e)
 	{
 		inicializa();
-		bool validacao = validaPresence("NOTICIA", e.Noticia) &&		validaValor("ORDEM", e.Ordem);
+		bool validacao = validaPresence("NOTICIA", e.Noticia) && validaValor("ORDEM", e.Ordem) && validaPresence("TITULO", e.Titulo);
 		if(!String.IsNullOrEmpty(getFeed(e.ID).Noticia))
 		{
 			if(validacao)
@@ -1888,7 +1932,7 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 				try
 				{
 					var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
-					db.Execute("UPDATE Feed SET NOTICIA=@0, ORDEM=@1 WHERE ID=@2", e.Noticia, e.Ordem, e.ID);
+					db.Execute("UPDATE Feed SET NOTICIA=@0, ORDEM=@1, TITULO=@2, VELOCIDADE=@3, ATIVO=@4 WHERE ID=@5", e.Noticia, e.Ordem, e.Titulo, e.Velocidade, e.Ativo, e.ID);
 					db.Close();
 					mensagemSucesso.mensagem = "Feed Alterada Com Sucesso!";
 					

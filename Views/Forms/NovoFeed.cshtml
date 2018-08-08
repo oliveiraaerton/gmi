@@ -1,0 +1,32 @@
+@{
+    Layout = "~/Layout/Layout.cshtml";
+    string chave = (string) Session["user"];
+}
+
+@if(!String.IsNullOrEmpty(chave))
+{
+<h1> CADASTRO DE FEED </h1>
+<form method="post" action="@Href("~/Views/Acts/SalvarFeed.cshtml")">
+    <div class="form-row">
+        <div class="col-md-2">
+            <div class="md-form form-group">
+                <input type="number" class="form-control" name="inputOrdem" id="inputOrdem" placeholder="Ordem">
+                <label for="inputOrdem">Ordem </label>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="md-form form-group">
+                <input type="text" class="form-control" id="inputTitulo" name="inputTitulo" placeholder="Título">
+                <label for="inputTitulo">Título </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="md-form form-group">
+                <input type="textarea" class="form-control" id="inputNoticia" name="inputNoticia" placeholder="Notícia">
+                <label for="inputNoticia">Notícia </label>
+            </div>
+        </div>
+    </div>  
+    <button type="submit" class="btn btn-primary btn-md">Salvar</button>
+</form>
+}

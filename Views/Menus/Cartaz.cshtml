@@ -1,6 +1,30 @@
 @{
 	Layout = "~/Layout/Layout.cshtml";
-	
-}
+	/**
+		listar dez cartazes
+		permitir pesquisar pelo cabecalho
+		permitir ver numa tela blank uma preview do cartaz
+		botao novo para incluir
+		na lista tem botao editar e excluir
+	**/
+    string chave = (string) Session["user"];
+	List<Cartaz> cartazes = Aplicativo.listaCartaz();
 
-<h1> CARTAZ </h1>
+	if(!String.IsNullOrEmpty(chave))
+	{
+		<h1> CARTAZ </h1>
+	    <a href="@Href("~/Views/Forms/NovoCartaz.cshtml")" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Novo</a>
+		<ul>
+		@foreach(Cartaz c in cartazes)
+		{
+			<li>
+				<ul>
+					<li>@c.Cabecalho </li>
+					<li>@c.Texto.Substring(0,20)</li>
+					<li>@c.Rodape.Substring(0,20)</li>
+				</ul>
+			</li>
+		}
+		</ul>
+	}
+}
