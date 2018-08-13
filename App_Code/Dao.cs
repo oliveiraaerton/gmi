@@ -1800,8 +1800,8 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 				e.Titulo = String.IsNullOrEmpty(sql.TITULO)?"":sql.TITULO.ToString();
 				e.Noticia = String.IsNullOrEmpty(sql.NOTICIA)?"":sql.NOTICIA.ToString();
 				e.Ordem = sql.ORDEM>0?sql.ORDEM:20;
-				e.Ativo = sql.ORDEM>0?sql.ATIVO:1;
-				e.Velocidade = sql.ORDEM>0?sql.VELOCIDADE:2;
+				e.Ativo = sql.ATIVO>0?sql.ATIVO:1;
+				e.Velocidade = sql.VELOCIDADE>0?sql.VELOCIDADE:2;
 				es.Add(e);
 			}
 			if(es.Count>0)
@@ -1822,7 +1822,7 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 		return es;
 	}
 
-	protected  static List<Feed> listFeeds(int ativo)
+	protected  static List<Feed> listaFeeds(int ativo)
 	{
 		inicializa();
 		List<Feed> es = new List<Feed>();
@@ -1860,6 +1860,51 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 		return es;
 	}
 
+	protected  static IEnumerable<dynamic> listFeeds(int ativo)
+	{
+		inicializa();
+		try
+		{
+			var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+			var query = db.Query("SELECT Feed.* FROM Feed WHERE ativo=@0 ORDER BY ORDEM", ativo);
+			db.Close();
+			return query;
+
+/*			if(es.Count>0)
+			{
+				mensagemSucesso.mensagem = "Total de Feeds: " + es.Count;
+								
+			}
+			else
+			{
+				mensagemValidacao.mensagem += "Nenhum Feed a ser listado";
+												
+			}
+*/
+		} catch (Exception ex) {
+			mensagemErro.mensagem = ex.Message;
+		}
+		//return es;
+		return null;			
+	}
+
+	protected  static IEnumerable<dynamic> listFeeds(string pesquisa)
+	{
+		inicializa();
+		try
+		{
+			var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+			string qpesquisa = String.Format("SELECT Feed.* FROM Feed WHERE Titulo like '%{0}%' ORDER BY ORDEM", pesquisa);
+			var query = db.Query(qpesquisa);
+			db.Close();
+			return query;
+		} catch (Exception ex) {
+			mensagemErro.mensagem = ex.Message;
+			
+		}
+		return null;			
+	}
+
 	protected  static Feed getFeed(int ID)
 	{
 		inicializa();
@@ -1875,8 +1920,8 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 				e.Titulo = String.IsNullOrEmpty(sql.TITULO)?"":sql.TITULO.ToString();
 				e.Noticia = String.IsNullOrEmpty(sql.NOTICIA)?"":sql.NOTICIA.ToString();
 				e.Ordem = sql.ORDEM>0?sql.ORDEM:20;
-				e.Ativo = sql.ORDEM>0?sql.ATIVO:1;
-				e.Velocidade = sql.ORDEM>0?sql.VELOCIDADE:2;
+				e.Ativo = sql.ATIVO>0?sql.ATIVO:1;
+				e.Velocidade = sql.VELOCIDADE>0?sql.VELOCIDADE:2;
 				mensagemSucesso.mensagem = "Feed: " + e.Noticia;
 							
 			}
@@ -1904,7 +1949,7 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 				try
 				{
 					var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
-					db.Execute("INSERT INTO Feed (ORDEM, TITULO, NOTICIA, ATIVO, VELOCIDADE) VALUES (@0, @1, @2, @3, @4)", e.Ordem, e.Titulo, e.Noticia, 1, 2);
+					db.Execute("INSERT INTO Feed (ORDEM, TITULO, NOTICIA, ATIVO, VELOCIDADE) VALUES (@0, @1, @2, @3, @4)", e.Ordem, e.Titulo, e.Noticia, 1, e.Velocidade);
 					db.Close();
 					mensagemSucesso.mensagem = "Feed Salva Com Sucesso!";
 					

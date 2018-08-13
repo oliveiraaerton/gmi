@@ -1,10 +1,4 @@
-<h1>Teste Geral</h1>
-<a href=@Href("~/Teste/TesteEmpresa.cshtml") target = "_blank"> Teste Empresa</a>
-<a href=@Href("~/Teste/TesteCartaz.cshtml") target = "_blank"> Teste Cartaz</a>
-<a href=@Href("~/Teste/TesteImagem.cshtml") target = "_blank"> Teste Imagem</a>
-<a href=@Href("~/Teste/TesteTabelas.cshtml") target = "_blank"> Teste Tabelas</a>
-<a href=@Href("~/Teste/TesteFeed.cshtml") target = "_blank"> Teste Feed</a>
-<a href=@Href("~/Teste/TesteItensTabelas.cshtml") target = "_blank"> Teste Itens de Tabela</a>
-<a href=@Href("~/Teste/TesteRegistro.cshtml") target = "_blank"> Teste Registro</a>
-<a href=@Href("~/Teste/TesteProgramacao.cshtml") target = "_blank"> Teste Programação</a>
-<a href=@Href("~/Teste/TesteItensProgramacao.cshtml") target = "_blank"> Teste Itens de Programação</a>
+@{
+	<p>@Aplicativo.ListaEmpresa().Cnpj </p>
+	<p>@Dao.mensagemErro.mensagem</p>
+}

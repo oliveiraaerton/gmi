@@ -1,28 +1,68 @@
 @{
+    string pesquisa=Request.QueryString["pesquisa"];
 	Layout = "~/Layout/Layout.cshtml";
-	/**
-		listar dez cartazes
-		permitir pesquisar pelo cabecalho
-		botao novo para incluir
-		na lista tem botao editar e excluir
-	**/
-    string chave = (string) Session["user"];
-	List<Feed> feeds = Aplicativo.listaFeed(1);
+    IEnumerable<dynamic> data=null;
+    if(string.IsNullOrEmpty(pesquisa))
+    {
+        data = Aplicativo.listaFeed("");    
+    }
+    else
+    {
+        data = Aplicativo.listaFeed(pesquisa);
+    }
+    
+    var grid = new WebGrid(source: data, defaultSort: "Titulo", rowsPerPage:6 );
+    grid.SortDirection = SortDirection.Ascending;
+}
+        <style type="text/css"> 
+            .grid { margin: 4px; border-collapse: collapse; width: 915px; } 
+            .head { background-color: #E8E8E8; font-weight: bold; color: #FFF; } 
+            .grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; } 
+            .alt { background-color: #E8E8E8; color: #000; } 
+            .id { width: 5%; font-weight:bold;text-align: center;} 
+            .acao { width: 2%; font-weight:bold;text-align: center;} 
+            .grupo { width: 15%; font-weight:bold;text-align: left;} 
+            .fone { width: 10%; font-weight:bold;text-align: left;} 
+        </style> 
 
-	if(!String.IsNullOrEmpty(chave))
-	{
-		<h1> FEED </h1>
-	    <a href="@Href("~/Views/Forms/NovoFeed.cshtml")" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Novo </a>
-		<ul>
-		@foreach(Feed c in feeds)
-		{
-			<li>
-				<ul>
-					<li>@c.Ordem </li>
-					<li>@c.Noticia.Substring(0,20)</li>
-				</ul>
-			</li>
-		}
-		</ul>
-	}
+<div class="container">
+        <form class="navbar-form pull-left" method="get">
+            <div class="hero-unit" style="width: 900px;">
+                <h3>Feed</h3>
+                    <a class="btn btn-large btn-success" href="~/Views/Forms/NovoFeed.cshtml">Novo</a><br/><br/>
+                    <div class="control-group" style="text-align: right; border: solid 1px;">
+                    <input type="text" class="span4" name="pesquisa" placeholder="Digite aqui sua pesquisa">
+                    <button type="submit" class="btn">Pesquisar</button>
+                </div>
+            </div>
+            <div id="grid">
+            @grid.GetHtml(
+                tableStyle: "grid",
+                headerStyle: "head",
+                alternatingRowStyle: "alt",
+                columns: grid.Columns (
+                    grid.Column("Select", style: "acao", header: "Selecione", format: @<i>@item.GetSelectLink("Alterar")</i>),
+                    grid.Column(style: "acao", header:"", format:@<a href="@Href("~/Views/Forms/ExcluirFeed.cshtml/@item.ID")">Excluir</a>),
+                    grid.Column("ORDEM", "Ordem", style: "id", format: @<i>@item.ordem</i>),
+                    grid.Column("TITULO", "Título", style: "grupo", format: @<i>@item.titulo</i>),
+                    grid.Column("ATIVO", "Ativo", style: "id", format: @<i>@if(item.ativo==1){<text>Ativo</text>}else{<text>Inativo</text>}</i>),
+                    grid.Column("VELOCIDADE", "Velocidade", style: "id", format: @<i>@item.velocidade</i>)
+                )
+            )     
+            </div>                
+        </form>
+</div>
+@if (grid.HasSelection)
+{   
+    var Feeds = grid.SelectedRow;
+    Feed g = new Feed();
+    g.ID=(int)Feeds["ID"];
+    g.Ordem=(int)Feeds["ORDEM"];
+    g.Titulo=(string)Feeds["TITULO"];
+    g.Noticia = (string)Feeds["NOTICIA"];
+    g.Velocidade = (int)Feeds["VELOCIDADE"];
+    g.Ativo = (int)Feeds["ATIVO"];
+    Session["Feed"] = g;
+    Session.Timeout = 9999;
+    Response.Redirect("~/Views/Forms/AlterarFeed.cshtml");    
 }

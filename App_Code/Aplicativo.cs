@@ -139,7 +139,22 @@ public class Aplicativo:Dao
 		e.Titulo =  request["inputTitulo"];
 		Dao.setFeed(e);	
 
-		response.Redirect("~/Views/Menus/Admin.cshtml");
+		response.Redirect("~/Views/Menus/Feed.cshtml");
+	}
+
+	public static void AlterarFeed(HttpResponseBase response, HttpRequestBase request)
+	{
+		Dao.inicializa();
+		Feed e = new Feed();
+		e.ID =  int.Parse(request["inputID"].ToString());
+		e.Ordem = int.Parse(request["inputOrdem"].ToString());
+		e.Ativo = int.Parse(request["inputAtivo"].ToString());
+		e.Noticia = request["inputNoticia"];
+		e.Titulo =  request["inputTitulo"];
+		e.Velocidade = int.Parse(request["inputVelocidade"].ToString());
+		Dao.updateFeed(e);	
+
+		response.Redirect("~/Views/Menus/Feed.cshtml");
 	}
 
 	public static bool ValidaLicenca()
@@ -153,8 +168,20 @@ public class Aplicativo:Dao
 		return Dao.listCartazes();
 	}
 
-	public static List<Feed> listaFeed(int ativo)
+	public static List<Feed> listaFeeds(int ativo)
+	{
+		return Dao.listaFeeds(ativo);
+	}
+
+	public static IEnumerable<dynamic> listaFeed(int ativo)
 	{
 		return Dao.listFeeds(ativo);
 	}
+
+	public static IEnumerable<dynamic> listaFeed(string pesquisa)
+	{
+		return Dao.listFeeds(pesquisa);
+	}
+
+
 }
