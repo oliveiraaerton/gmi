@@ -491,7 +491,7 @@ public class Teste:Dao
 
 		//Cadastrar uma empresa válida
 		inicializaTeste();
-		List<Imagem> imagens = Dao.listImagens();
+		List<Imagem> imagens = Dao.listaImagens();
 		respostaTeste();				
 		Dao.deleteImagem(c1);
 		Dao.deleteImagem(c2);
@@ -501,14 +501,14 @@ public class Teste:Dao
 	public static void PesquisaListaNenhumImagens()
 	{
 		//Cadastrar uma empresa válida
-		List<Imagem> imagens = Dao.listImagens();
+		List<Imagem> imagens = Dao.listaImagens();
 		foreach(Imagem c in imagens)
 		{
 			Dao.deleteImagem(c);
 		}
 
 		inicializaTeste();
-		imagens = Dao.listImagens();
+		imagens = Dao.listaImagens();
 		respostaTeste();				
 	}		
 

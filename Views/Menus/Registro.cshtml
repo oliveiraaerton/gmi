@@ -1,5 +1,7 @@
 @{
     Layout = "~/Layout/Layout.cshtml";
+    Aplicativo.Run((string) Session["user"], Response);
+
   	Registro e = Aplicativo.ListaRegistro(Aplicativo.ListaEmpresa().Cnpj);
     string chave = (string) Session["user"];
 }

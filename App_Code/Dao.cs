@@ -991,7 +991,7 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 
 ///// CRUD IMAGEM
 
-	protected  static List<Imagem> listImagens()
+	protected  static List<Imagem> listaImagens()
 	{
 		inicializa();
 		List<Imagem> es = new List<Imagem>();
@@ -1026,6 +1026,39 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 		}
 		return es;
 	}
+
+	protected  static IEnumerable<dynamic> listImagens()
+	{
+		inicializa();
+		try
+		{
+			var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+			var query = db.Query("SELECT Imagem.* FROM Imagem ORDER BY ENDERECO");
+			return query;
+			db.Close();
+		} catch (Exception ex) {
+			mensagemErro.mensagem = ex.Message;
+			
+		}
+		return null;
+	}
+
+	protected  static IEnumerable<dynamic> listImagens(string pesquisa)
+	{
+		inicializa();
+		try
+		{
+			var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+			var query = db.Query(String.Format("SELECT Imagem.* FROM Imagem Where Endereco like '%{0}%' ORDER BY ENDERECO", pesquisa));
+			return query;
+			db.Close();
+		} catch (Exception ex) {
+			mensagemErro.mensagem = ex.Message;
+			
+		}
+		return null;
+	}
+
 
 	protected  static Imagem getImagem(int ID)
 	{
@@ -1937,6 +1970,33 @@ protected  static void deleteItensProgramacao(ItensProgramacao e)
 		}
 		return e;
 	}
+
+	protected  static int maximoOrdemFeed()
+	{
+		inicializa();
+		try
+		{
+			var db = Database.OpenConnectionString("Data Source=|DataDirectory|\\GMI.sdf;encryption mode=platform default;Password=m1d1@;", "System.Data.SqlServerCe.4.0");
+			var sql = db.QuerySingle("SELECT MAX(Ordem)+1 As Maximo FROM Feed WHERE Ativo = 1");
+			db.Close();
+			if(sql!=null)
+			{
+				mensagemSucesso.mensagem = "Ordem Máxima: " + sql.Maximo;
+				return sql.Maximo;						
+			}
+			else
+			{
+				mensagemValidacao.mensagem += "Ordem Inexistente";
+				return 1;					
+			}
+
+		} catch (Exception ex) {
+			mensagemErro.mensagem = ex.Message;
+			
+		}
+		return 1;
+	}
+
 
 	protected  static void setFeed(Feed e)
 	{

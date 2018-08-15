@@ -1,4 +1,6 @@
 @{
+    Aplicativo.Run((string) Session["user"], Response);
+
     Layout = "~/Layout/Layout.cshtml";
   	Empresa e = Aplicativo.ListaEmpresa();
     string chave = (string) Session["user"];

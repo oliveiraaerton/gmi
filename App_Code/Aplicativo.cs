@@ -10,6 +10,11 @@ using WebMatrix.Data;
 
 public class Aplicativo:Dao
 {	
+	public static void Run(string chave, HttpResponseBase response)
+	{
+			if(String.IsNullOrEmpty(chave)) response.Redirect("~/Admin.cshtml");
+	}
+
 	public static void ValidaUsuario(HttpResponseBase response, HttpRequestBase request, HttpContextBase context)
 	{
 		Usuario u = new Usuario();
@@ -130,6 +135,63 @@ public class Aplicativo:Dao
 		response.Redirect("~/Views/Menus/Admin.cshtml");
 	}
 
+	public static void SalvarImagem(HttpResponseBase response, HttpRequestBase request)
+	{
+		Dao.inicializa();
+		Imagem e = new Imagem();
+		e.Endereco = request["inputEndereco"];
+		e.Largura = int.Parse(request["inputLargura"].ToString());
+		e.Altura = int.Parse(request["inputAltura"].ToString());
+		Dao.setImagem(e);	
+
+		response.Redirect("~/Views/Menus/Imagem.cshtml");
+	}
+
+	public static void AlterarImagem(HttpResponseBase response, HttpRequestBase request)
+	{
+		Dao.inicializa();
+		Imagem e = new Imagem();
+		e.ID =  int.Parse(request["inputID"].ToString());
+		e.Endereco = request["inputEndereco"];
+		e.Largura = int.Parse(request["inputLargura"].ToString());
+		e.Altura = int.Parse(request["inputAltura"].ToString());
+		Dao.updateImagem(e);	
+
+		response.Redirect("~/Views/Menus/Imagem.cshtml");
+	}
+
+	public static Imagem BuscarImagem(string id)
+	{
+		Dao.inicializa();
+		Imagem e = Dao.getImagem(int.Parse(id));
+		return e;
+	}
+
+	public static void ExcluirImagem(HttpResponseBase response, HttpRequestBase request)
+	{
+		Dao.inicializa();
+		Imagem e = new Imagem();
+		e.ID =  int.Parse(request["inputID"].ToString());
+		Dao.deleteImagem(e);
+
+		response.Redirect("~/Views/Menus/Imagem.cshtml");
+	}
+
+	public static List<Imagem> listaImagens()
+	{
+		return Dao.listaImagens();
+	}
+
+	public static IEnumerable<dynamic> listaImagem()
+	{
+		return Dao.listImagens();
+	}
+
+	public static IEnumerable<dynamic> listaImagem(string pesquisa)
+	{
+		return Dao.listImagens(pesquisa);
+	}
+
 	public static void SalvarFeed(HttpResponseBase response, HttpRequestBase request)
 	{
 		Dao.inicializa();
@@ -137,6 +199,7 @@ public class Aplicativo:Dao
 		e.Ordem = int.Parse(request["inputOrdem"].ToString());
 		e.Noticia = request["inputNoticia"];
 		e.Titulo =  request["inputTitulo"];
+		e.Velocidade = int.Parse(request["inputVelocidade"].ToString());
 		Dao.setFeed(e);	
 
 		response.Redirect("~/Views/Menus/Feed.cshtml");
@@ -157,15 +220,27 @@ public class Aplicativo:Dao
 		response.Redirect("~/Views/Menus/Feed.cshtml");
 	}
 
-	public static bool ValidaLicenca()
+	public static int MaximoOrdemFeed()
 	{
-		bool resultado = Dao.validaLicenca(ListaRegistro(ListaEmpresa().Cnpj).LicencaAtiva, DateTime.Now);
-		return resultado;
+		Dao.inicializa();
+		return Dao.maximoOrdemFeed();
 	}
 
-	public static List<Cartaz> listaCartaz()
+	public static Feed BuscarFeed(string id)
 	{
-		return Dao.listCartazes();
+		Dao.inicializa();
+		Feed e = Dao.getFeed(int.Parse(id));
+		return e;
+	}
+
+	public static void ExcluirFeed(HttpResponseBase response, HttpRequestBase request)
+	{
+		Dao.inicializa();
+		Feed e = new Feed();
+		e.ID =  int.Parse(request["inputID"].ToString());
+		Dao.deleteFeed(e);
+
+		response.Redirect("~/Views/Menus/Feed.cshtml");
 	}
 
 	public static List<Feed> listaFeeds(int ativo)
@@ -183,5 +258,16 @@ public class Aplicativo:Dao
 		return Dao.listFeeds(pesquisa);
 	}
 
+
+	public static bool ValidaLicenca()
+	{
+		bool resultado = Dao.validaLicenca(ListaRegistro(ListaEmpresa().Cnpj).LicencaAtiva, DateTime.Now);
+		return resultado;
+	}
+
+	public static List<Cartaz> listaCartaz()
+	{
+		return Dao.listCartazes();
+	}
 
 }

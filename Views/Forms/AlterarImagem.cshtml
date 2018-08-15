@@ -1,0 +1,35 @@
+@{
+    Layout = "~/Layout/Layout.cshtml";
+    string chave = (string) Session["user"];
+    Imagem f = (Imagem) Session["Imagem"];
+}
+
+@if(!String.IsNullOrEmpty(chave))
+{
+<h1> CADASTRO DE IMAGEM </h1>
+<form method="post" action="@Href("~/Views/Acts/AlterarImagem.cshtml")">
+    <div class="form-row">
+        <div class="col-md-12">
+            <div class="md-form form-group">
+              <input type="number" class="form-control" min=1 name="inputID" id="inputID" value="@f.ID" hidden>
+                <input type="text" class="form-control" min=1 name="inputEndereco" id="inputEndereco" value="@f.Endereco" required>
+                <label for="inputEndereco">Endereço </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="md-form form-group">
+                <input type="number" class="form-control" min=1 name="inputLargura" id="inputLargura" value="@f.Largura" required>
+                <label for="inputLargura">Largura</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="md-form form-group">
+                <input type="number" class="form-control" min=1 name="inputAltura" id="inputAltura" value="@f.Altura" required>
+                <label for="inputAltura">Altura</label>
+            </div>
+        </div>
+    </div>  
+    <button type="submit" class="btn btn-primary btn-md">Salvar</button>
+    <a href="@Href("~/Views/Menus/Imagem.cshtml")" class="btn btn-warning" role="button">Cancelar</a>
+</form>
+}

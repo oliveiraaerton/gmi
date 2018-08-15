@@ -1,6 +1,7 @@
 @{
     Layout = "~/Layout/Layout.cshtml";
     string chave = (string) Session["user"];
+    int maximo = Aplicativo.MaximoOrdemFeed();
 }
 
 @if(!String.IsNullOrEmpty(chave))
@@ -10,7 +11,7 @@
     <div class="form-row">
         <div class="col-md-2">
             <div class="md-form form-group">
-                <input type="number" class="form-control" min=1 name="inputOrdem" id="inputOrdem" placeholder="Ordem" required>
+                <input type="number" class="form-control" min=1 name="inputOrdem" id="inputOrdem" placeholder="Ordem" required value="@maximo">
                 <label for="inputOrdem">Ordem </label>
             </div>
         </div>
@@ -28,7 +29,7 @@
         </div>
         <div class="col-md-2">
             <div class="md-form form-group">
-                <input type="number" min=1 max=3 class="form-control" id="inputVelocidade" name="inputVelocidade" placeholder="Velocidade">
+                <input type="number" min=1 max=3 class="form-control" id="inputVelocidade" name="inputVelocidade" placeholder="Velocidade" value="3">
                 <label for="inputVelocidade">Velocidade </label>
             </div>
         </div>

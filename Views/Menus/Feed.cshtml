@@ -1,4 +1,6 @@
 @{
+    Aplicativo.Run((string) Session["user"], Response);
+
     string pesquisa=Request.QueryString["pesquisa"];
 	Layout = "~/Layout/Layout.cshtml";
     IEnumerable<dynamic> data=null;
@@ -11,7 +13,7 @@
         data = Aplicativo.listaFeed(pesquisa);
     }
     
-    var grid = new WebGrid(source: data, defaultSort: "Titulo", rowsPerPage:6 );
+    var grid = new WebGrid(source: data, defaultSort: "Ordem", rowsPerPage:6 );
     grid.SortDirection = SortDirection.Ascending;
 }
         <style type="text/css"> 
@@ -21,7 +23,7 @@
             .alt { background-color: #E8E8E8; color: #000; } 
             .id { width: 5%; font-weight:bold;text-align: center;} 
             .acao { width: 2%; font-weight:bold;text-align: center;} 
-            .grupo { width: 15%; font-weight:bold;text-align: left;} 
+            .grupo { width: 30%; font-weight:bold;text-align: left;} 
             .fone { width: 10%; font-weight:bold;text-align: left;} 
         </style> 
 
@@ -42,7 +44,7 @@
                 alternatingRowStyle: "alt",
                 columns: grid.Columns (
                     grid.Column("Select", style: "acao", header: "Selecione", format: @<i>@item.GetSelectLink("Alterar")</i>),
-                    grid.Column(style: "acao", header:"", format:@<a href="@Href("~/Views/Forms/ExcluirFeed.cshtml/@item.ID")">Excluir</a>),
+                    grid.Column(style: "acao", header:"", format:@<a href="@Href("~/Views/Forms/ExcluirFeed.cshtml/"+@item.ID)">Excluir</a>),
                     grid.Column("ORDEM", "Ordem", style: "id", format: @<i>@item.ordem</i>),
                     grid.Column("TITULO", "Título", style: "grupo", format: @<i>@item.titulo</i>),
                     grid.Column("ATIVO", "Ativo", style: "id", format: @<i>@if(item.ativo==1){<text>Ativo</text>}else{<text>Inativo</text>}</i>),
